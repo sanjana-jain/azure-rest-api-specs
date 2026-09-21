@@ -52,11 +52,11 @@ interface FunctionAppLabels {
   get is ArmResourceRead<FunctionAppLabel>;
 
   /** Assigns a retained Function App version to a Function App label. The preview supports only the production label. */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<FunctionAppLabel>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<FunctionAppLabel>;
 
   /** Lists Function App labels for a site. */
   listBySite is ArmResourceListByParent<FunctionAppLabel>;
 
   /** Clears a Function App label assignment. Deleting production safely restores legacy serving authority. */
-  delete is ArmResourceDeleteSync<FunctionAppLabel>;
+  delete is ArmResourceDeleteWithoutOkAsync<FunctionAppLabel>;
 }

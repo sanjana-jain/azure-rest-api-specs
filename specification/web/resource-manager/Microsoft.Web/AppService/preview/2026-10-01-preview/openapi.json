@@ -12890,6 +12890,17 @@
             "description": "Resource 'FunctionAppLabel' create operation succeeded",
             "schema": {
               "$ref": "#/definitions/FunctionAppLabel"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
             }
           },
           "default": {
@@ -12906,7 +12917,12 @@
           "Update the production Function App label assignment": {
             "$ref": "./examples/UpdateProductionFunctionAppLabel.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/FunctionAppLabel"
+        },
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "FunctionAppLabels_Delete",
@@ -12941,8 +12957,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -12958,7 +12985,11 @@
           "Delete the production Function App label": {
             "$ref": "./examples/DeleteProductionFunctionAppLabel.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/functionAppVersions": {
